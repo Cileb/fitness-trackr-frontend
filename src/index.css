@@ -1,13 +1,545 @@
-body {
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&family=Roboto:wght@100&display=swap");
+
+* {
+  font-family: "Montserrat", sans-serif;
+  box-sizing: border-box;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.root {
+  font-family: "Montserrat", sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+}
+
+body {
+  background-color: #f2f2f2;
+  color: #0d0d0d;
+  font-family: "Montserrat", sans-serif;
+}
+
+.posts-container,
+.post-container {
+  display: flex;
+  flex-wrap: wrap;
+  overflow: hidden;
+  align-items: center;
+  justify-content: center;
+}
+
+.posts,
+.messages,
+.single-post,
+.post-right,
+.messages-right {
+  background-color: white;
+  margin: 1rem;
+  width: 400px;
+
+  border-radius: 4px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  padding: 1rem;
+  position: relative;
+  overflow: hidden;
+  color: #0d0d0d;
+}
+
+.messages-right {
+  display: flex;
+  justify-content: center;
+  width: 95%;
+  box-shadow: none;
+  border-radius: 4px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.messages {
+  width: 95vw;
+}
+.single-post {
+  width: 550px;
+  height: 550px;
+}
+.post-right {
+  width: 550px;
+  height: 550px;
+  overflow-y: scroll;
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
+}
+.post-right::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}
+.description {
+  overflow-y: scroll;
+  min-height: 125px;
+  max-height: 400px;
+  padding: 0.75rem;
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
+}
+
+.description::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}
+
+.posts h3,
+.single-post h3,
+.messages-sender,
+.post-right h3,
+.messages-sender-right,
+.popup-inner h3 {
+  text-align: center;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #203f59;
+  font-size: 1.25rem;
+}
+
+.messages-sender-right {
+  border-bottom: none;
+  text-align: right;
+  padding-right: 1rem;
+}
+
+.description-post {
+  overflow-y: scroll;
+  min-height: 375px;
+  max-height: 375px;
+  padding: 0.5rem;
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
+}
+
+.description-post::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}
+
+.posts-seller {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem;
+  border-top: 2px solid #203f59;
+  justify-content: space-between;
+}
+
+.posts-info,
+.post-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: bottom;
+  padding: 0.5rem;
+}
+
+.post-info {
+  flex-direction: column;
+}
+
+.post-info span {
+  padding: 0.25rem;
+}
+
+.posts-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.posts-header input {
+  font-family: inherit;
+  background-color: #fcfcfc;
+  color: #0d0d0d;
+  padding: 1rem;
+  font-size: 1rem;
+  width: 100%;
+  border: 0px;
+  border-bottom: 2px solid #203f59;
+}
+
+.posts-header input:focus {
+  outline: none;
+}
+
+.nav {
+  color: black;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  text-transform: uppercase;
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+.nav h1 {
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.header-link {
+  font-size: 1;
+  font-family: "Montserrat", sans-serif;
+  margin-left: 38px;
+  text-decoration: none;
+  text-align: left;
+  color: black;
+  padding: 0.5rem;
+}
+
+.header-link:hover {
+  font-weight: 900;
+  border-radius: 50px;
+
+  padding: 0.5rem;
+}
+
+.posts-overlay {
+  background-color: transparent;
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1rem;
+  transform: translateY(100%);
+  transition: transform 0.3s ease-in-out;
+}
+
+.posts:hover .posts-overlay {
+  transform: translateY(-100%);
+}
+.posts:hover {
+  box-shadow: rgba(69, 128, 177, 1) 0px 0px 10px 5px;
+  transition: all 0.35s linear;
+  z-index: 100;
+}
+.posts-overlay button,
+.send-message {
+  font-family: "Montserrat", sans-serif;
+  border-radius: 50px;
+  padding: 1rem;
+  background-color: #203f59;
+  color: white;
+  border: 2px solid #203f59;
+  font-weight: bold;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  cursor: pointer;
+}
+
+.posts-overlay button:hover,
+.edit-delete button:hover {
+  font-family: "Montserrat", sans-serif;
+  border: 2px solid rgb(69, 128, 177);
+  background-color: rgb(69, 128, 177);
+  transition: all 0.35s linear;
+}
+
+.profile-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-container p {
+  width: 25%;
+}
+
+.messages a {
+  text-decoration: underline;
+  color: #0d0d0d;
+}
+
+.messages-container {
+  display: flex;
+  flex-wrap: wrap;
+  overflow: hidden;
+  color: #f2f2f2;
+  flex-direction: column;
+}
+.messages-content,
+.messages-content-right {
+  width: 90vw;
+  overflow-x: auto;
+}
+
+.messages-main .messages-content-right {
+  border-left: 2px solid #203f59;
+}
+
+.messages-button {
+  font-family: "Montserrat", sans-serif;
+  border-radius: 50px;
+  padding: 1rem;
+  background-color: #203f59;
+  color: white;
+  border: 2px solid #203f59;
+  font-weight: bold;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  width: 125px;
+  height: 75px;
+  margin: 1rem;
+  text-align: center;
+  cursor: pointer;
+}
+
+.messages-button:hover {
+  font-family: "Montserrat", sans-serif;
+  border: 2px solid rgb(69, 128, 177);
+  background-color: rgb(69, 128, 177);
+  transition: all 0.35s linear;
+}
+.messages-button a {
+  text-decoration: none;
+  color: white;
+}
+
+.messages-sender {
+  display: flex;
+  font-size: 1.2rem;
+  text-align: right;
+  justify-content: space-between;
+}
+
+.messages-main {
+  display: flex;
+  align-items: center;
+
+  justify-content: space-between;
+}
+
+.add-post {
+  font-family: "Montserrat", sans-serif;
+  background-color: rgba(32, 63, 89, 1);
+  font-weight: normal;
+  border-radius: 50px;
+  padding: 1rem;
+  margin: 1rem;
+  font-size: 1.2rem;
+  width: 200px;
+  text-align: center;
+  cursor: pointer;
+  border: none;
+}
+
+.not-found {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+.add-post {
+  text-decoration: none;
+  color: #f2f2f2;
+  font-family: "Montserrat", sans-serif;
+}
+.add-post:hover {
+  box-shadow: rgba(69, 128, 177, 1) 0px 0px 10px 3px;
+  background-color: rgb(69, 128, 177);
+  transition: all 0.35s linear;
+  font-weight: bold;
+}
+.profile-container {
+  display: flex;
+}
+.profile-container h1 {
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+}
+.profile-container p {
+  font-size: 1.2rem;
+  padding: 1rem;
+  border-bottom: 2px solid #011640;
+}
+
+.single-post h3,
+.post-right h3 {
+  font-size: 1.5rem;
+}
+
+.single-post p {
+  padding: 1rem;
+}
+
+.edit-delete {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.35);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup-inner {
+  position: relative;
+
+  width: 100%;
+  max-width: 640px;
+  background-color: white;
+  padding: 1rem;
+  border-radius: 4px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+
+  overflow: hidden;
+  color: #0d0d0d;
+}
+
+.popup-inner .close-btn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+}
+
+.edit-delete button {
+  margin-top: 0.5rem;
+  margin-left: 1rem;
+  font-family: "Montserrat", sans-serif;
+  border-radius: 50px;
+  padding: 1rem;
+  background-color: #203f59;
+  color: white;
+  border: 2px solid #203f59;
+  font-weight: bold;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  text-align: center;
+  cursor: pointer;
+}
+#delete {
+  background-color: red;
+  border: 2px solid red;
+}
+
+#delete:hover {
+  background-color: lightcoral;
+  border: 2px solid lightcoral;
+  transition: all 0.35s linear;
+}
+
+.login-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #f2f2f2;
+  min-height: 100vh;
+  overflow: hidden;
+}
+.login-container {
+  color: black;
+  background-color: white;
+  border-radius: 4px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  width: 400px;
+  overflow: hidden;
+  max-width: 100%;
+}
+.login-header {
+  background-color: #203f59;
+  padding: 0.5rem 1rem;
+  border-bottom: 1px solid #203f59;
+  color: #f2f2f2;
+  text-transform: uppercase;
+  border-radius: 4px;
+  text-align: right;
+}
+
+.login-form {
+  padding: 0.5rem 1rem;
+}
+
+.form-input,
+.form-input-message {
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  position: relative;
+}
+
+.form-input-message {
+  margin-bottom: 1rem;
+  padding: 0;
+}
+
+.form-input input:focus {
+  box-shadow: rgba(69, 128, 177, 0.5) 0px 0px 10px 1px;
+  outline: none;
+}
+
+.form-input-message textarea:focus {
+  box-shadow: none;
+  outline: none;
+}
+
+.form-input label {
+  display: inline-block;
+  margin-bottom: 0.5rem;
+}
+
+.form-input input,
+.form-input-message textarea {
+  border: 2px solid #203f59;
+  border-radius: 4px;
+  display: block;
+  width: 100%;
+  padding: 0.5rem;
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+.form-input-message textarea {
+  width: 100%;
+  height: 250px;
+  align-items: top;
+  resize: none;
+  padding: 1rem;
+  font-size: 1rem;
+}
+
+.form-input i {
+  position: absolute;
+  top: 40px;
+  right: 10px;
+  visibility: hidden;
+}
+.form-input small {
+  visibility: hidden;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+.login-form button {
+  background-color: #203f59;
+  border: 2px solid #203f59;
+  color: white;
+  display: block;
+  font-family: inherit;
+  padding: 0.75rem;
+  border-radius: 4px;
+  width: 100%;
+  font-size: 1.1rem;
+  cursor: pointer;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.login-form button:hover {
+  border: 2px solid rgb(69, 128, 177);
+  background-color: rgb(69, 128, 177);
+  transition: all 0.35s linear;
 }
